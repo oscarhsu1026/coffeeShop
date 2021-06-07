@@ -299,7 +299,7 @@ function OrderProcessRightSideLeft({tempPerSelectedDrink,handlePerSelectedDrink,
 
       }}>{"||"}</button></div>
       <div className="rightSideContent">
-        <div class="orderID">
+        <div className="orderID">
             訂單編號 {tempOrder.ID}
         </div>
         <div>
@@ -351,12 +351,12 @@ function OrderProcessRightSideLeft({tempPerSelectedDrink,handlePerSelectedDrink,
 }
 
 
-function PerOrder({perOrderData,deleteOrderFun,handleOrderRightSideLeftPopup}){
+function PerOrder({perOrderData,deleteOrderFun,handleOrderRightSideLeftPopup,handleDeleteOrder}){
     
   return(
       <div className="perOrder">
               <div className="preOrderHeader">
-                  <div  > 訂單編號: <b>{perOrderData.ID}</b></div>
+                  <div  > 訂單編號: <b>{perOrderData.ID}</b> <button onClick={()=>{handleDeleteOrder(perOrderData.ID)}}>刪除</button></div>
                   <div style={{display:"inline-block",padding:"20px"}}>
                   時間: {perOrderData?.time?dayjs(perOrderData.time).format("YYYY-MM-DD HH:mm"):'無法顯示'}
                 </div>
@@ -520,6 +520,16 @@ function App() {
     }
   }
 
+  const handleDeleteOrder=(orderID)=>{
+    if(window.confirm("確認刪除這一筆訂單")){
+      let tempOrderLists=[...orderLists];
+      let deleteOrderIndex=tempOrderLists.findIndex((order)=>order.ID==orderID);
+      if(deleteOrderIndex||deleteOrderIndex==0){
+        tempOrderLists.splice(deleteOrderIndex,1);
+        setOrderLists([...tempOrderLists]);
+      }
+    }
+  }
 
   return (
     <div className="container">
@@ -534,7 +544,7 @@ function App() {
                 </div>
                   {
                     orderLists.slice(0).reverse().map((order)=>(
-                      <PerOrder perOrderData={order}  deleteOrderFun={deleteOrderFun}   handleOrderRightSideLeftPopup={handleOrderRightSideLeftPopup}/>
+                      <PerOrder perOrderData={order}  deleteOrderFun={deleteOrderFun}   handleOrderRightSideLeftPopup={handleOrderRightSideLeftPopup} handleDeleteOrder={handleDeleteOrder}/>
                       )
                     )
                   }
