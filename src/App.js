@@ -265,7 +265,7 @@ function OrderProcessRightSideLeft({tempPerSelectedDrink,handlePerSelectedDrink,
 
   useLayoutEffect(()=>{
     if(modifyOrder){
-      setTempOrder({...modifyOrder})
+      setTempOrder({...modifyOrder,drinks:[...modifyOrder.drinks]})
     }else{
       setTempOrder({ID:dayjs().unix(),time:dayjs().toISOString(),drinks:[],note:''});
     }
