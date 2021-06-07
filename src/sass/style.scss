@@ -52,6 +52,7 @@ button{
     background-color: #4d4d4d;
     color:white;
     overflow: hidden;
+    padding-top: 20px;
     .content{
         display: flex;
         flex-direction: row;
@@ -107,7 +108,6 @@ button{
                 }
             }
         }
-        margin-top: 20px;
     }
 }
 
